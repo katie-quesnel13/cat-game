@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "prefix": "Moon",
+    "suffix": "kit",
+    "rank": "kit",
+    "age": 5,
+    "gender": "tom",
+    "living": true,
+    "relationships": {
+      "sire": 3,
+      "mentor": null,
+      "dam": 10,
+      "siblings": [
+        2,
+        5,
+        8
+      ],
+      "trainees":[]
+    },
+    "genes": "Ll XoY blb Dd Aa Mcmc spsp Tata csC WsWs",
+    "description": "short-haired chocolate ticked tabby tom with high white spotting"
+  },
+  {
+
+  }
+]
