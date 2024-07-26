@@ -15,3 +15,5 @@ out into different lists so that names match with the colour of the cat being na
 
 ns-names - a specific tool to generate warrior names using a list of prefixes specific to the nature found in Nova Scotia.
 namemaker would be able to be pointed at other prefix lists, if generated
+
+eye colour chart source: https://sparrows-garden.com/eye-color-generator.html (note i'm using different logic for the eyes)
