@@ -29,12 +29,15 @@ generic_names = ["One", "Little", "Soft", "Small", "Big", "Quiet", "Moth", "Fuzz
                  "Tiny", "Short", "Tall", "Long", "Loud", "Flower"]
 
 # suffixes
-name_list = ["wing", "claw", "moon", "strike", "pelt", "fur", "tail", "ear", "bark", "dawn", "dusk",
-             "eye", "face", "fall", "flight", "frost", "heart", "cloud", "belly", "breeze", "blossom",
-             "flower", "feather", "fang", "dapple", "creek", "jaw", "leg", "light", "mist", "pounce",
-             "poppy", "splash", "spot", "ripple", "needle", "pad", "foot", "puddle", "muzzle", "thistle",
-             "teeth", "rose", "nose", "spring", "leap", "swoop", "stone", "stream", "willow", "wind",
-             "whisper", "talon", "shine", "shade", "throat", "thorn", "seed", "runner", "stem", "stripe",
-             "speckle", "snow", "song", "scratch", "mask", "leaf", "wish", "bone", "stalk", "toe", "tooth",
-             "tuft", "whisker", "claw", "fur", "pelt", "fang", "bee", "fern", "fire", "fin", "flower", "flame",
-             "blaze", "brook", "bird", "belly", "bright"]
+name_list = [
+    "bark", "beam", "bee", "belly", "berry", "bird", "blaze", "bloom", "blossom", "branch", "briar", "bright", "brook",
+    "burr", "burrow", "bush", "claw", "cloud", "crawl", "creek", "dapple", "dawn", "dusk", "dust", "ear", "eater", "eye",
+    "eyes", "face", "fall", "fang", "feather", "fern", "fin", "fire", "fish", "flake", "flame", "flight", "flower",
+    "foot", "frost", "fur", "gorse", "hawk", "haze", "heart", "ice", "jaw", "leaf", "leap", "leg", "light", "mask",
+    "minnow", "mist", "moon", "mouse", "muzzle", "needle", "nose", "pad", "peak", "pelt", "petal", "pool", "poppy",
+    "pounce", "puddle", "ripple", "rose", "runner", "scar", "scratch", "seed", "shade", "shadow", "shell", "shine",
+    "sight", "skip", "sky", "slip", "smoke", "snout", "snow", "song", "speck", "speckle", "spirit", "splash", "spot",
+    "slash", "spots", "spring", "stalk", "stem", "step", "stone", "storm", "stream", "strike", "stripe", "swoop", "tail",
+    "talon", "teeth", "thistle", "thorn", "throat", "toe", "tooth", "tuft", "watcher", "water", "whisker", "whisper",
+    "whistle", "willow", "wind", "wing", "wish"
+]
