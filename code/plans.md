@@ -18,7 +18,7 @@
 - some sort of looping access system which means i can launch one program and access the others repeatedly
     - maybe change with this to have "save files" rather than always using clan.json
 - refactor the existing code to make more sense, especially splitting methods into more generic files
-    - this would probably also involve using more efficent solutions than chained if statements, as they're a lot to read
+    - this would probably also involve using more efficient solutions than chained if statements, as they're a lot to read
 - consider refactoring the gene strings to support more genes? silver, dilute modifier, other types of pointing? albinos?
  don't think i want fur mutations or ear/tail mutations, but maybe polydactyl? that would involve storing presentation of 
  maybe genes, though
