@@ -5,7 +5,7 @@ def describe(genes):
     description = ""
     genes_in = genes.split()
     gene_dict = {i: gene for i, gene in enumerate(genes_in)}
-    print(gene_dict)
+
     fur = gene_dict[0]  # fur length
     gender = gene_dict[1]  # gender + red tortie black
     colour = gene_dict[2]  # black/chocolate/cinnamon

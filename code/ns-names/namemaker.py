@@ -25,6 +25,3 @@ for i in range(10):
     p = prefix()
     s = suffix(p)
     print(f"{p}{s}")
-
-# print(len(prefix_list))
-# print(len(suffix_list))

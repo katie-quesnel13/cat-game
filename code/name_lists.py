@@ -1,18 +1,19 @@
 # prefixes
 red_names = ["Fire", "Flame", "Fox", "Red", "Ginger", "Rose", "Ember", "Bright", "Poppy", "Cherry", "Sun",
-             "Golden", "Fallow", "Cedar", "Honey", "Blaze", "Yellow", "Holly", "Berry"]
+             "Golden", "Fallow", "Cedar", "Honey", "Blaze", "Yellow", "Holly", "Berry", "Maple", "Sorrel"]
 cream_names = ["Bright", "Milk", "Sand", "Dust", "Yellow", "Dawn", "Light", "Golden", "Morning",
-               "Daisy", "Pale", "Egg", "Lily"]
+               "Daisy", "Pale", "Egg", "Lily", "Honey", "Elm"]
 black_names = ["Night", "Crow", "Rook", "Shade", "Shadow", "Dark", "Black", "Hawk", "Bramble", "Leaf",
-               "Mouse", "Hare", "Owl", "Feather", "Eel", "Ant", "Snake", "Cricket", "Oak", "Holly", "Stone"]
+               "Mouse", "Hare", "Owl", "Feather", "Eel", "Ant", "Snake", "Cricket", "Oak", "Holly", "Stone", "Fern",
+               "Partridge", "Sorrel"]
 blue_names = ["Silver", "Grey", "Blue", "Moon", "Stone", "Feather", "Mist", "Light", "Gravel",
-              "Fog", "Rock", "Storm", "Ash", "Fin", "Marsh", "Moss", "Sky", "Jay"]
+              "Fog", "Rock", "Storm", "Ash", "Fin", "Marsh", "Moss", "Sky", "Jay", "Violet", "Aster", "Moth"]
 chocolate_names = ["Bramble", "Hawk", "Bracken", "Cricket", "Mouse", "Rabbit", "Hare", "Owl", "Stag",
-                   "Fern", "Hoot", "Marsh", "Pine", "Oak"]
+                   "Fern", "Hoot", "Marsh", "Pine", "Oak", "Fern", "Partridge"]
 lilac_names = ["Dove", "Feather", "Stone", "Pebble", "Mist", "Fog", "Dust", "Ash", "Elder", "Newt",
-               "Jay", "Eagle", "Dusk", "Tawny", "Fennel", "Mud", "Aspen", "Bird"]
+               "Jay", "Eagle", "Dusk", "Tawny", "Fennel", "Mud", "Aspen", "Bird", "Violet", "Aster", "Elm"]
 cinnamon_names = ["Dust", "Mud", "Leaf", "Tree", "Fawn", "Deer", "Doe", "Honey", "Mole", "Otter",
-                  "Lizard", "Sand", "Rabbit", "Vole"]
+                  "Lizard", "Sand", "Rabbit", "Vole", "Sorrel"]
 fawn_names = ["Pale", "Bug", "Dawn", "Leaf", "Mist", "Dust", "Dove", "Bird", "Pike", "Plum", "Sky",
               "Hazel", "Shrew", "Clover"]
 mackerel_names = ["Tiger", "Stripe", "Long", "Reed", "Grass", "Stalk", "Heron", "Snake", "Newt"]
@@ -25,7 +26,8 @@ pointed_names = ["Pale", "Dawn", "Light", "Bug", "Sand", "Daisy", "Sky", "Berry"
 calico_names = ["Flutter", "Patch", "Dapple", "Leaf", "Maple", "Moth"]
 patched_names = ["Patch", "Spot", "Badger", "Petal", "Splash", "Bubble", "Ferret"]
 generic_names = ["One", "Little", "Soft", "Small", "Big", "Quiet", "Moth", "Fuzzy", "Hope", "Sharp",
-                 "Tiny", "Short", "Tall", "Long", "Loud"]
+                 "Tiny", "Short", "Tall", "Long", "Loud", "Flower"]
+
 # suffixes
 name_list = ["wing", "claw", "moon", "strike", "pelt", "fur", "tail", "ear", "bark", "dawn", "dusk",
              "eye", "face", "fall", "flight", "frost", "heart", "cloud", "belly", "breeze", "blossom",
