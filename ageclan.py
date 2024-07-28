@@ -32,6 +32,7 @@ def increment_ages(data):
 def assign_mentor(data):
     apprentices = [cat for cat in data if 6 <= int(cat['age']) <= 12 and cat['relationships']['mentor'] is None]
 
+    # Function to check if a warrior is eligible
     def is_eligible_mentor(warrior, data):
         trainees = warrior['relationships']['trainees']
         if not trainees:
@@ -39,10 +40,10 @@ def assign_mentor(data):
         last_trainee = min(trainees, key=lambda id: next(cat for cat in data if cat['id'] == id)['age'])
         return next(cat for cat in data if cat['id'] == last_trainee)['age'] >= 13
 
-    # Create a list of eligible mentors
-    eligible_mentors = [warrior for warrior in data if
-                        (warrior['rank'] == 'Warrior' or warrior['rank'] == 'Deputy'
-                         or warrior['rank'] == 'Leader' or warrior['rank'] == 'Healer') and is_eligible_mentor(warrior, data)]
+    # Include Leader, Deputy, and Healer in the pool of eligible mentors
+    eligible_mentors = [cat for cat in data if
+                        cat['rank'] in ['Warrior', 'Leader', 'Deputy', 'Healer'] and is_eligible_mentor(cat, data)]
+    new_pairs = []
 
     for apprentice in apprentices:
         # Filter mentors who are not the sire or dam of the apprentice
@@ -56,23 +57,29 @@ def assign_mentor(data):
             # If no available mentors, pick sire or dam if they are warriors
             potential_mentors = [cat for cat in data if cat['id'] in [apprentice['relationships']['dam'],
                                                                       apprentice['relationships']['sire']] and cat[
-                                     'rank'] == 'Warrior']
+                                     'rank'] in ['Warrior', 'Leader', 'Deputy', 'Healer']]
             mentor = random.choice(potential_mentors) if potential_mentors else None
 
         if mentor:
             apprentice['relationships']['mentor'] = mentor['id']
             mentor['relationships']['trainees'].append(apprentice['id'])
+            if mentor['rank'] == 'Healer':
+                apprentice['rank'] = 'Healer Apprentice'
+            new_pairs.append((mentor, apprentice))
             # Recalculate eligible mentors after assigning a mentor
-            eligible_mentors = [warrior for warrior in data if
-                                warrior['rank'] == 'Warrior' and is_eligible_mentor(warrior, data)]
+            eligible_mentors = [cat for cat in data if
+                                cat['rank'] in ['Warrior', 'Leader', 'Deputy', 'Healer'] and is_eligible_mentor(cat,
+                                                                                                                data)]
 
-    return data
+    return data, new_pairs
 
 
 def add_leadership(data):
-    # Find existing leader and deputy
+    # Find existing leader, deputy, and healer
     leader = next((cat for cat in data if cat.get('rank') == 'Leader'), None)
     deputy = next((cat for cat in data if cat.get('rank') == 'Deputy'), None)
+    healer = next((cat for cat in data if cat.get('rank') == 'Healer'), None)
+    healer_apprentice = next((cat for cat in data if cat.get('rank') == 'Healer Apprentice'), None)
 
     # Helper function to find eligible leaders or deputies
     def eligible_candidates(cats, data):
@@ -90,12 +97,12 @@ def add_leadership(data):
 
     new_leader = None
     new_deputy = None
+    new_healer = None
 
     if not leader and not deputy:
         if eligible_leaders:
             new_leader = random.choice(eligible_leaders)
             new_leader['rank'] = 'Leader'
-            new_leader['suffix'] = 'star'
             eligible_leaders.remove(new_leader)
             if eligible_leaders:
                 new_deputy = random.choice(eligible_leaders)
@@ -103,7 +110,6 @@ def add_leadership(data):
         else:
             new_leader = random.choice(warriors)
             new_leader['rank'] = 'Leader'
-            new_leader['suffix'] = 'star'
             warriors.remove(new_leader)
             new_deputy = random.choice(warriors)
             new_deputy['rank'] = 'Deputy'
@@ -117,7 +123,6 @@ def add_leadership(data):
     elif not leader and deputy:
         new_leader = deputy
         new_leader['rank'] = 'Leader'
-        new_leader['suffix'] = 'star'
         eligible_leaders = eligible_candidates(warriors, data)
         if eligible_leaders:
             new_deputy = random.choice(eligible_leaders)
@@ -126,7 +131,18 @@ def add_leadership(data):
             new_deputy = random.choice(warriors)
             new_deputy['rank'] = 'Deputy'
 
-    return data, new_leader, new_deputy
+    if not healer:
+        if healer_apprentice:
+            healer_apprentice['rank'] = 'Healer'
+            new_healer = healer_apprentice
+        else:
+            eligible_healers = [warrior for warrior in warriors if
+                                not warrior['relationships']['trainees'] and not warrior['relationships']['kittens']]
+            if eligible_healers:
+                new_healer = random.choice(eligible_healers)
+                new_healer['rank'] = 'Healer'
+
+    return data, new_leader, new_deputy, new_healer
 
 
 def print_cat(data):
@@ -156,11 +172,20 @@ def main(json_file_path):
 
     # Increment ages
     updated_data = increment_ages(existing_data)
-    updated_data = assign_mentor(updated_data)
+
+    # Assign mentors to new apprentices
+    updated_data, new_pairs = assign_mentor(updated_data)
+
     # Add leadership roles
-    updated_data, new_leader, new_deputy = add_leadership(updated_data)
+    updated_data, new_leader, new_deputy, new_healer = add_leadership(updated_data)
 
     print_cat(updated_data)
+
+    for mentor, apprentice in new_pairs:
+        print(f"{mentor['prefix']}{mentor['suffix']} is now training {apprentice['prefix']}{apprentice['suffix']}")
+
+    if new_healer:
+        print(f"New Healer: {new_healer['prefix']}{new_healer['suffix']}")
 
     if new_leader:
         print(f"New Leader: {new_leader['prefix']}{new_leader['suffix']}")
