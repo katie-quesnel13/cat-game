@@ -4,7 +4,6 @@
 - modify makecat to be able to randomly create a genestring if no input is provided
 - modify namemaker to be able to take in different location packs for prefixes
 - think of more prefixes and suffixes + add them in
-- re-arrange the repo to make more sense and have actual code in the root file? may or may not
 - death triggers to ageclan
     - need to decide level of mortality (save file setting?)
     - would be interested in something along the lines of the tumblr blog 'warrior cats but cats die' as at least one

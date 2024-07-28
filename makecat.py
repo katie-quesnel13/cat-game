@@ -1,4 +1,6 @@
 import json
+import random
+
 from describecat import describe
 from cat_creation_methods import get_prefix, get_suffix
 
@@ -6,18 +8,20 @@ from cat_creation_methods import get_prefix, get_suffix
 def makecat(genes, cat_id):
     appearance = describe(genes)
     prefix = get_prefix(appearance)
-    suffix = get_suffix(prefix)
     age = int(input("Enter age for new cat: ").strip())
+    suffix = get_suffix(prefix, age)
     rank = input("Enter rank for new cat: ").strip()
+    if rank == 'Leader':
+        suffix = 'star'
     relationships = {
-            'dam': None,
-            'sire': None,
-            'mentor': None,
-            'littermates': [],
-            'trainees': [],
-            'kittens': [],
-            'mate': None
-        }
+        'dam': None,
+        'sire': None,
+        'mentor': None,
+        'littermates': [],
+        'trainees': [],
+        'kittens': [],
+        'mate': None
+    }
     cat_dict = {
         'id': cat_id,
         'prefix': prefix,
@@ -31,6 +35,35 @@ def makecat(genes, cat_id):
         'description': appearance
     }
     return cat_dict
+
+
+def random_genestring():
+    fur = ["LL", "Ll", "ll"]
+    gender = ["XOXO", "XOXo", "XoXo", "XOY", "XoY", "XOXO", "XOXo", "XoXo", "XOY", "XoY", "XOY", "XoY"]
+    colour = ["BB", "Bb", "blB", "bb", "blb"]
+    dilute = ["DD", "Dd", "dd", "Dd"]
+    solid = ['AA', 'Aa', 'aa', 'Aa']
+    mackerel = ['McMc', 'Mcmc', 'mcmc', 'Mcmc']
+    spotted = ['SpSp', 'Spsp', 'spsp']
+    ticked = ['TaTa', 'Tata', 'tata', 'tata', 'tata', 'tata', 'tata', 'tata', 'tata', 'tata', 'tata', 'tata']
+    pointed = ['CC', 'csC', 'cscs', 'CC']
+    white = ['ww', 'Wsw', 'Wdw', 'WsWs', 'WdWs', 'WdWd', 'ww', 'Wsw', 'WsWs', 'ww', 'Wsw', 'WsWs', 'ww', 'Wsw', 'WsWs']
+    eyes = ['1', '2', '3', '4']
+
+    genes = random.choice(fur) + " "
+    genes += random.choice(gender) + " "
+    genes += random.choice(colour) + " "
+    genes += random.choice(dilute) + " "
+    genes += random.choice(solid) + " "
+    genes += random.choice(mackerel) + " "
+    genes += random.choice(spotted) + " "
+    genes += random.choice(ticked) + " "
+    genes += random.choice(pointed) + " "
+    genes += random.choice(white) + " "
+    genes += random.choice(eyes) + " "
+    genes += random.choice(eyes)
+
+    return genes
 
 
 def main(json_file_path):
@@ -53,7 +86,11 @@ def main(json_file_path):
 
     print("Format for genes: if it's 3 letters long, make sure longer gene is first. Numbers refer to eye colour:"
           " refraction is first and pigmentation is second. Blue is determined via white present on the cat")
-    genes = input("Enter genetic profile for the new cat (e.g., 'LL XOXO BB DD AA McMc SpSp TaTa CC WsWs 1 1'): ").strip()
+    genes = input(
+        "Enter genetic profile for the new cat (e.g., 'LL XOXO BB DD AA McMc SpSp TaTa CC WsWs 1 1') or leave blank for "
+        "a random genetic profile: ").strip()
+    if genes == "":
+        genes = random_genestring()
     new_cat = makecat(genes, next_id)
     print(f"{new_cat['prefix']}{new_cat['suffix']}: {new_cat['rank']}, {new_cat['description']}, {new_cat['age']}"
           f" moons old")

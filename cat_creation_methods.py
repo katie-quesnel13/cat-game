@@ -5,6 +5,14 @@ import random
 def get_prefix(appearance):
     prefix_list = []
     prefix_list.extend(generic_names)
+    eyesblue = True
+    if " blue eyes" in appearance or " one blue eye" in appearance:
+        applist = appearance.split()
+        for i, w in enumerate(applist):
+            if w == 'blue':
+                if i + 1 < len(applist) and applist[i + 1] != 'eye' or applist[i + 1] != 'eyes':
+                    eyesblue = False
+                    break
 
     if " red " in appearance:
         prefix_list.extend(red_names)
@@ -15,7 +23,7 @@ def get_prefix(appearance):
     if "black " in appearance:
         prefix_list.extend(black_names)
 
-    if "blue " in appearance:
+    if "blue " in appearance and eyesblue is False:
         prefix_list.extend(blue_names)
 
     if "chocolate " in appearance:
@@ -58,8 +66,17 @@ def get_prefix(appearance):
     return random.choice(prefix_list)
 
 
-def get_suffix(prefix):
-    suffix = prefix
-    while suffix == prefix:
-        suffix = random.choice(name_list)
+def get_suffix(prefix, age):
+    age = int(age)
+    if age >= 12:
+        suffix = prefix
+        while str.lower(suffix) == str.lower(prefix):
+            suffix = random.choice(name_list)
+    elif 6 <= age < 12:
+        suffix = 'paw'
+    else:
+        suffix = 'kit'
+
     return suffix
+
+

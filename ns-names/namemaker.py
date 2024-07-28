@@ -9,7 +9,7 @@ def prefix():
 
 def suffix(pre):
     suf = pre
-    while suf == pre:
+    while str.lower(suf) == str.lower(pre):
         suf = random.choice(suffix_list)
     return suf
 

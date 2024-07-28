@@ -163,7 +163,7 @@ else:
 
 print("Format for genes: if it's 3 letters long, make sure longer gene is first. Numbers refer to eye colour:"
       " refraction is first and pigmentation is second. Blue is determined via white present on the cat. You can instead"
-      "use the id of a cat in the clan in place of genetics")
+      " use the id of a cat in the clan in place of genetics")
 dam = input("Enter genetic profile for dam (e.g., 'LL XOXO BB DD AA McMc SpSp TaTa CC WsWs 1 1'): ").strip()
 if dam.isdigit():
     dam_id = int(dam)
