@@ -5,8 +5,7 @@ makekittens - takes in either genetics strings or the id of existing cats and pr
 
 makecat - takes in a gene string and makes a cat, then you set values like rank and age
 
-ageclan - takes a list of cats in the json, increasing ages and applying name changes as needed. does not handle leaders, 
-deputies, or healers
+ageclan - takes a list of cats in the json, increasing ages and applying name changes as needed. also updates leaders, deputies, as needed, using standard wc rules. assigns mentors to apprentices who don't yet have one, prefering non-parents before parents
 
 describecat - used by the other tools as a base to turn genetics into a readable string
 
