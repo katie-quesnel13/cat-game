@@ -52,6 +52,14 @@ def assign_mentor(data):
 
         if available_mentors:
             mentor = random.choice(available_mentors)
+        else:
+            # If no available mentors, pick sire or dam if they are warriors
+            potential_mentors = [cat for cat in data if cat['id'] in [apprentice['relationships']['dam'],
+                                                                      apprentice['relationships']['sire']] and cat[
+                                     'rank'] == 'Warrior']
+            mentor = random.choice(potential_mentors) if potential_mentors else None
+
+        if mentor:
             apprentice['relationships']['mentor'] = mentor['id']
             mentor['relationships']['trainees'].append(apprentice['id'])
             # Recalculate eligible mentors after assigning a mentor
