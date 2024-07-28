@@ -33,7 +33,7 @@ pointed_names = ["Pale", "Dawn", "Light", "Bug", "Sand", "Daisy", "Sky", "Berry"
 calico_names = ["Flutter", "Patch", "Dapple", "Leaf", "Maple", "Moth"]
 patched_names = ["Patch", "Spot", "Badger", "Petal", "Splash", "Bubble", "Ferret"]
 generic_names = ["One", "Little", "Soft", "Small", "Big", "Quiet", "Moth", "Fuzzy", "Hope", "Sharp",
-                 "Tiny", "Short", "Tall", "Long", "Loud", "Flower", "Frog", "Flutter", "Duck", "Hill", "Weed", "Swift"
+                 "Tiny", "Short", "Tall", "Long", "Loud", "Flower", "Frog", "Flutter", "Duck", "Hill", "Weed", "Swift",
                  "Strike", "Splash", "Sedge", "Rush", "Minnow", "Pod", "Pool", "Mumble", "Talon", "Song", "Vine", "Rain"]
 
 # suffixes

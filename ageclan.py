@@ -8,37 +8,57 @@ def increment_ages(data):
     if isinstance(data, list):
         # Iterate over each record and increment the age
         for record in data:
-            if 'age' in record and isinstance(record['age'], (int, float)):
-                record['age'] += 1
-                # Update suffix if age is in range 6-11
-                if 6 <= int(record['age']) < 12:
-                    record['suffix'] = 'paw'
-                    record["rank"] = 'Apprentice'
-                if int(record['age']) >= 12 and record['suffix'] == 'paw':
-                    record['suffix'] = get_suffix(record['prefix'], record['age'])
-                    record['rank'] = 'Warrior'
-                if any(kitten_id in [cat['id'] for cat in data if cat['age'] <= 5] for kitten_id in
-                        record['relationships']['kittens']) and record['rank'] == 'Warrior':
-                    record['rank'] = 'Queen'
-                if record['rank'] == 'Queen' and all(
-                        kitten_id in [cat['id'] for cat in data if cat['age'] >= 5] for kitten_id in
-                        record['relationships']['kittens']):
-                    record['rank'] = 'Warrior'
-                if record['rank'] == 'Leader':
-                    record['suffix'] = 'star'
+            if record.get('living', True):
+                if 'age' in record and isinstance(record['age'], (int, float)):
+                    record['age'] += 1
+                    # Update suffix if age is in range 6-11
+                    if 6 <= int(record['age']) < 12 and record['rank'] is not 'Healer Apprentice':
+                        record['suffix'] = 'paw'
+                        record["rank"] = 'Apprentice'
+                    if int(record['age']) >= 12 and record['suffix'] == 'paw':
+                        record['suffix'] = get_suffix(record['prefix'], record['age'])
+                        if record['rank'] == 'Apprentice':
+                            record['rank'] = 'Warrior'
+                        elif record['rank'] == 'Healer Apprentice':
+                            record['rank'] = 'Healer Apprentice'
+                    # Update rank to Queen if conditions are met
+#                    if (any(kitten_id in [cat['id'] for cat in data if cat['age'] <= 5 and cat['living']] for kitten_id
+#                            in record['relationships']['kittens']) and record['rank'] == 'Warrior'
+#                            and record['gender'] == 'molly'):
+#                        record['rank'] = 'Queen'
+#                    # Demote from Queen to Warrior if all living kittens are 6 moons or older
+#                    if record['rank'] == 'Queen':
+#                        all_kittens_old = all(
+#                            any(cat['id'] == kitten_id and cat['age'] >= 6 and cat['living'] for cat in data)
+#                            for kitten_id in record['relationships']['kittens']
+#                        )
+#                        if all_kittens_old:
+#                            record['rank'] = 'Warrior'
+                    if record['rank'] == 'Leader':
+                        record['suffix'] = 'star'
+                    for kitten_id in [cat['id'] for cat in data if cat['age'] <= 5 and cat['living']]:
+                        print(kitten_id)
     return data
 
 
 def assign_mentor(data):
-    apprentices = [cat for cat in data if 6 <= int(cat['age']) <= 12 and cat['relationships']['mentor'] is None]
-
+    apprentices = [cat for cat in data if 6 <= int(cat['age']) <= 12
+                   and cat['relationships']['mentor'] is None and cat.get('living', True)]
+    print(apprentices)
     # Function to check if a warrior is eligible
     def is_eligible_mentor(warrior, data):
         trainees = warrior['relationships']['trainees']
         if not trainees:
             return True
-        last_trainee = min(trainees, key=lambda id: next(cat for cat in data if cat['id'] == id)['age'])
-        return next(cat for cat in data if cat['id'] == last_trainee)['age'] >= 13
+        # Check if the mentor is living
+        if not warrior.get('living', True):
+            return False
+        last_trainee = min(
+            trainees,
+            key=lambda id: next(cat for cat in data if cat['id'] == id)['age']
+        )
+        last_trainee_cat = next(cat for cat in data if cat['id'] == last_trainee)
+        return last_trainee_cat['age'] >= 13
 
     # Include Leader, Deputy, and Healer in the pool of eligible mentors
     eligible_mentors = [cat for cat in data if
@@ -76,23 +96,23 @@ def assign_mentor(data):
 
 def add_leadership(data):
     # Find existing leader, deputy, and healer
-    leader = next((cat for cat in data if cat.get('rank') == 'Leader'), None)
-    deputy = next((cat for cat in data if cat.get('rank') == 'Deputy'), None)
-    healer = next((cat for cat in data if cat.get('rank') == 'Healer'), None)
-    healer_apprentice = next((cat for cat in data if cat.get('rank') == 'Healer Apprentice'), None)
+    leader = next((cat for cat in data if cat.get('rank') == 'Leader' and cat['living'] is True), None)
+    deputy = next((cat for cat in data if cat.get('rank') == 'Deputy' and cat['living'] is True), None)
+    healer = next((cat for cat in data if cat.get('rank') == 'Healer' and cat['living'] is True), None)
+    healer_apprentice = next((cat for cat in data if cat.get('rank') == 'Healer Apprentice' and cat['living'] is True),
+                             None)
 
     # Helper function to find eligible leaders or deputies
     def eligible_candidates(cats, data):
         eligible = []
         for cat in cats:
             trainees = cat['relationships']['trainees']
-            if trainees and all(
-                    next(tc for tc in data if tc['id'] == trainee_id)['age'] >= 12 for trainee_id in trainees):
+            if trainees and next(tc for tc in data if tc['id'] == trainees[0])['age'] >= 12 and cat['living'] is True:
                 eligible.append(cat)
         return eligible
 
     # Get all warriors
-    warriors = [cat for cat in data if cat['rank'] == 'Warrior']
+    warriors = [cat for cat in data if cat['rank'] == 'Warrior' and cat['living'] is True]
     eligible_leaders = eligible_candidates(warriors, data)
 
     new_leader = None
@@ -103,6 +123,7 @@ def add_leadership(data):
         if eligible_leaders:
             new_leader = random.choice(eligible_leaders)
             new_leader['rank'] = 'Leader'
+            new_leader['suffix'] = 'star'
             eligible_leaders.remove(new_leader)
             if eligible_leaders:
                 new_deputy = random.choice(eligible_leaders)
@@ -110,6 +131,7 @@ def add_leadership(data):
         else:
             new_leader = random.choice(warriors)
             new_leader['rank'] = 'Leader'
+            new_leader['suffix'] = 'star'
             warriors.remove(new_leader)
             new_deputy = random.choice(warriors)
             new_deputy['rank'] = 'Deputy'
@@ -123,6 +145,7 @@ def add_leadership(data):
     elif not leader and deputy:
         new_leader = deputy
         new_leader['rank'] = 'Leader'
+        new_leader['suffix'] = 'star'
         eligible_leaders = eligible_candidates(warriors, data)
         if eligible_leaders:
             new_deputy = random.choice(eligible_leaders)
@@ -130,6 +153,14 @@ def add_leadership(data):
         else:
             new_deputy = random.choice(warriors)
             new_deputy['rank'] = 'Deputy'
+    elif leader and not deputy:
+        if eligible_leaders:
+            new_deputy = random.choice(eligible_leaders)
+            new_deputy['rank'] = 'Deputy'
+        else:
+            if warriors:
+                new_deputy = random.choice(warriors)
+                new_deputy['rank'] = 'Deputy'
 
     if not healer:
         if healer_apprentice:
@@ -145,17 +176,91 @@ def add_leadership(data):
     return data, new_leader, new_deputy, new_healer
 
 
-def print_cat(data):
+def apply_retired(data):
+    if isinstance(data, list):
+        retired_cats = []
+        for record in data:
+            if record.get('living', True) and record['rank'] in ['Warrior', 'Deputy', 'Healer']:
+                age = int(record.get('age', 0))
+                if age >= 96:
+                    if any(
+                            trainee_id in record['relationships']['trainees'] and
+                            next(cat for cat in data if cat['id'] == trainee_id)['age'] < 12
+                            for trainee_id in record['relationships']['trainees']
+                    ):
+                        continue
 
+                    retirement_chance = min(age - 95, 100) / 100.0
+
+                    if random.random() < retirement_chance:
+                        record['rank'] = 'Elder'
+                        retired_cats.append(record)
+        return data, retired_cats
+    return data, []
+
+
+def apply_death(data):
+    if isinstance(data, list):
+        deceased_cats = []
+        for record in data:
+            if record.get('living', True):
+                age = int(record.get('age', 0))
+                rank = record.get('rank', '')
+
+                # Base chance of death by rank
+                death_chance = 0
+                if rank == 'Leader':
+                    death_chance = 0.005  # 0.1% chance
+                    if age > 120:
+                        death_chance = 0.25
+                    if age > 168:
+                        death_chance = 0.5
+                    if age > 200:
+                        death_chance = 0.75
+                    if age > 216:
+                        death_chance = 0.9
+                elif rank == 'Deputy':
+                    death_chance = 0.004  # 0.4% chance
+                elif rank == 'Healer' or rank == 'Healer Apprentice':
+                    death_chance = 0.002  # 0.2% chance
+                elif rank == 'Elder':
+                    # Chance increases with age, capped at 25%
+                    death_chance = age / 100.0
+                elif rank == 'Warrior':
+                    death_chance = 0.004  # 0.4% chance
+                    if age > 96:
+                        death_chance = age / 100.0
+                    if age > 120:
+                        death_chance = age + 10 / 100.0
+                elif rank == 'Apprentice':
+                    death_chance = 0.007  # 0.7% chance
+                elif rank == 'Queen':
+                    death_chance = 0.002  # 0.2% chance
+                elif rank == 'Kit':
+                    death_chance = 0.1  # 1% chance
+
+                # Apply death chance
+                if random.random() < death_chance:
+                    record['living'] = False
+                    deceased_cats.append(record)
+
+        return data, deceased_cats
+    return data, []
+
+
+def print_cat(data):
     # Check if data is a list
     if isinstance(data, list):
         # Iterate over each record and print the prefix and new age
         for record in data:
-            prefix = record.get('prefix', 'No prefix')
-            suffix = record.get('suffix', 'No suffix')
-            age = record.get('age', 'No age')
-            gender = record.get('gender', 'No gender')
-            print(f"{prefix}{suffix}: {age} moons old {gender}")
+            if record.get('living', True):  # Check if the cat is living
+                prefix = record.get('prefix', 'No prefix')
+                suffix = record.get('suffix', 'No suffix')
+                age = record.get('age', 'No age')
+                gender = record.get('gender', 'No gender')
+                rank = record.get('rank', 'No rank')
+                id = record.get('id', "no id")
+                print(f"{prefix}{suffix}: {age} moons old {gender} {rank} {id}")
 
 
 def main(json_file_path):
@@ -171,7 +276,11 @@ def main(json_file_path):
         existing_data = json.load(file)
 
     # Increment ages
-    updated_data = increment_ages(existing_data)
+    updated_data, deceased_cats = apply_death(existing_data)
+
+    updated_data = increment_ages(updated_data)
+
+    updated_data, retired_cats = apply_retired(updated_data)
 
     # Assign mentors to new apprentices
     updated_data, new_pairs = assign_mentor(updated_data)
@@ -181,16 +290,20 @@ def main(json_file_path):
 
     print_cat(updated_data)
 
-    for mentor, apprentice in new_pairs:
-        print(f"{mentor['prefix']}{mentor['suffix']} is now training {apprentice['prefix']}{apprentice['suffix']}")
-
-    if new_healer:
-        print(f"New Healer: {new_healer['prefix']}{new_healer['suffix']}")
-
     if new_leader:
         print(f"New Leader: {new_leader['prefix']}{new_leader['suffix']}")
     if new_deputy:
         print(f"New Deputy: {new_deputy['prefix']}{new_deputy['suffix']}")
+    if new_healer:
+        print(f"New Healer: {new_healer['prefix']}{new_healer['suffix']}")
+
+    for mentor, apprentice in new_pairs:
+        print(f"{mentor['prefix']}{mentor['suffix']} is now training {apprentice['prefix']}{apprentice['suffix']}")
+    for cat in retired_cats:
+        print(f"{cat['prefix']}{cat['suffix']} has retired and is now an Elder.")
+    # Print death messages
+    for cat in deceased_cats:
+        print(f"{cat['prefix']}{cat['suffix']}, a {cat['rank']}, has died this moon.")
 
     # Write the updated data back to the file
     with open(json_file_path, 'w') as file:
