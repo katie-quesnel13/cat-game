@@ -78,7 +78,7 @@ def describe(genes):
                     else:
                         description += "blue and cream tortie "
                 else:
-                    description += "caramel and apricot tortie"
+                    description += "caramel and apricot tortie "
             else:
                 if colour == "blbl":
                     description += "cinnamon and red tortie "
