@@ -70,7 +70,7 @@ def describe(genes):
     else:
         if gender == "XOXo" or gender == "XoXO":
             if dilute == "dd":
-                if dilute_modifier != "dmdm":
+                if dilute_modifier == "dmdm":
                     if colour == "blbl":
                         description += "fawn and cream tortie "
                     elif colour == "blb" or colour == "bb":
