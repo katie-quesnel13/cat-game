@@ -44,9 +44,9 @@ def describe(genes):
         if dilute == "dd":
             if gender == "XOY":
                 if dilute_modifier != "dmdm":
-                    description += "cream "
-                else:
                     description += "apricot "
+                else:
+                    description += "cream "
             else:
                 if dilute_modifier != "dmdm":
                     if colour == "blbl":
@@ -90,9 +90,9 @@ def describe(genes):
             if dilute == "dd":
                 if gender == "XOXO":
                     if dilute_modifier != "dmdm":
-                        description += "cream "
-                    else:
                         description += "apricot "
+                    else:
+                        description += "cream "
                 else:
                     if dilute_modifier != "dmdm":
                         if colour == "blbl":
