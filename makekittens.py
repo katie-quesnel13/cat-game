@@ -164,7 +164,7 @@ else:
 print("Format for genes: if it's 3 letters long, make sure longer gene is first. Numbers refer to eye colour:"
       " refraction is first and pigmentation is second. Blue is determined via white present on the cat. You can instead"
       " use the id of a cat in the clan in place of genetics")
-dam = input("Enter genetic profile for dam (e.g., 'LL XOXO BB DD AA McMc SpSp TaTa CC WsWs 1 1'): ").strip()
+dam = input("Enter genetic profile for dam (e.g., 'LL XOXO BB DD dmdm AA ii McMc SpSp TaTa CC WsWs 1 1'): ").strip()
 if dam.isdigit():
     dam_id = int(dam)
     matching_item1 = next((item for item in existing_data if item['id'] == dam_id), None)
@@ -176,7 +176,7 @@ if dam.isdigit():
 else:
     parent1 = dam
 
-sire = input("Enter genetic profile for sire (e.g., 'LL XOY BB DD AA McMc SpSp TaTa CC WsWs 1 4'): ").strip()
+sire = input("Enter genetic profile for sire (e.g., 'LL XOY BB DD dmdm AA ii McMc SpSp TaTa CC WsWs 1 4'): ").strip()
 if sire.isdigit():
     sire_id = int(sire)
     matching_item2 = next((item for item in existing_data if item['id'] == sire_id), None)

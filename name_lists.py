@@ -21,6 +21,10 @@ cinnamon_names = ["Dust", "Mud", "Leaf", "Tree", "Fawn", "Deer", "Doe", "Honey",
                   "Lizard", "Sand", "Rabbit", "Vole", "Sorrel", "Acorn", "Weasel", "Wren", "Stem", "Mole", "Rowan"]
 fawn_names = ["Pale", "Bug", "Dawn", "Leaf", "Mist", "Dust", "Dove", "Bird", "Pike", "Plum", "Sky",
               "Hazel", "Shrew", "Clover", "Grass", "Wren", "Stoat", "Puddle", "Storm", "Rowan"]
+caramel_names = ["Dust", "Sand", "Ash", "Bark", "Stone", "Wren", "Mist"]
+apricot_names = ["Bright", "Golden", "Moth", "Yellow", "Dawn", "Honey"]
+silver_names = ["Pale", "Silver", "Moth", "Lightning", "Strike", "Sharp"]
+smoke_names = ["Smoke", "Mist", "Moon", "Haze", "Light", "Wave", "Wind", "Breeze"]
 mackerel_names = ["Tiger", "Stripe", "Long", "Reed", "Grass", "Stalk", "Heron", "Snake", "Newt", "Hazel", "Stem",
                   "Streak"]
 spotted_names = ["Spotted", "Pebble", "Dapple", "Nut", "Brook", "Plum", "Leopard", "Lily", "Spot", "Dot", "Mark"]

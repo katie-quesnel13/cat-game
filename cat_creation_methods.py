@@ -38,6 +38,18 @@ def get_prefix(appearance):
     if "fawn " in appearance:
         prefix_list.extend(fawn_names)
 
+    if " caramel " in appearance:
+        prefix_list.extend(caramel_names)
+
+    if " apricot " in appearance:
+        prefix_list.extend(apricot_names)
+
+    if " silver " in appearance:
+        prefix_list.extend(silver_names)
+
+    if " smoke " in appearance:
+        prefix_list.extend(smoke_names)
+
     if "mackerel " in appearance:
         prefix_list.extend(mackerel_names)
 
@@ -85,7 +97,9 @@ def random_genestring():
     gender = ["XOXO", "XOXo", "XoXo", "XOY", "XoY", "XOXO", "XOXo", "XoXo", "XOY", "XoY", "XOY", "XoY"]
     colour = ["BB", "Bb", "blB", "bb", "blb"]
     dilute = ["DD", "Dd", "dd", "Dd"]
+    dilute_modifier = ["dmdm", "Dmdm", "dmDm", "DmDm", "dmdm", "dmdm", "dmdm", "dmdm"]
     solid = ['AA', 'Aa', 'aa', 'Aa']
+    inhibitor = ["ii", "Ii", "iI", "II", "ii", "ii", "ii", "ii"]
     mackerel = ['McMc', 'Mcmc', 'mcmc', 'Mcmc']
     spotted = ['SpSp', 'Spsp', 'spsp']
     ticked = ['TaTa', 'Tata', 'tata', 'tata', 'tata', 'tata', 'tata', 'tata', 'tata', 'tata', 'tata', 'tata']
@@ -98,7 +112,9 @@ def random_genestring():
     genes += random.choice(gender) + " "
     genes += random.choice(colour) + " "
     genes += random.choice(dilute) + " "
+    genes += random.choice(dilute_modifier) + " "
     genes += random.choice(solid) + " "
+    genes += random.choice(inhibitor) + " "
     genes += random.choice(mackerel) + " "
     genes += random.choice(spotted) + " "
     genes += random.choice(ticked) + " "

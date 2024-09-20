@@ -10,14 +10,16 @@ def describe(genes):
     gender = gene_dict[1]  # gender + red tortie black
     colour = gene_dict[2]  # black/chocolate/cinnamon
     dilute = gene_dict[3]  # dilution
-    solid = gene_dict[4]  # is it solid
-    mackerel = gene_dict[5]  # tabby patterns
-    spotted = gene_dict[6]
-    ticked = gene_dict[7]
-    pointed = gene_dict[8]  # is it pointed
-    white = gene_dict[9]  # white spotting and dominant white
-    refraction = gene_dict[10]  # eye refraction
-    pigment = gene_dict[11]  # eye pigment
+    dilute_modifier = gene_dict[4]  # dilution modifier - makes colours warmer w/ diff name
+    solid = gene_dict[5]  # is it solid
+    inhibitor = gene_dict[6]  # is this cat silver or smoke? silver tabby smoke solid
+    mackerel = gene_dict[7]  # tabby patterns
+    spotted = gene_dict[8]
+    ticked = gene_dict[9]
+    pointed = gene_dict[10]  # is it pointed
+    white = gene_dict[11]  # white spotting and dominant white
+    refraction = gene_dict[12]  # eye refraction
+    pigment = gene_dict[13]  # eye pigment
 
     if contains_string(white, "Wd"):
         if fur == "LL" or fur == "Ll" or fur == "lL":
@@ -41,14 +43,20 @@ def describe(genes):
     if gender == "XOY" or gender == "XoY":
         if dilute == "dd":
             if gender == "XOY":
-                description += "cream "
-            else:
-                if colour == "blbl":
-                    description += "fawn "
-                elif colour == "blb" or colour == "bb":
-                    description += "lilac "
+                if dilute_modifier != "dmdm":
+                    description += "cream "
                 else:
-                    description += "blue "
+                    description += "apricot "
+            else:
+                if dilute_modifier != "dmdm":
+                    if colour == "blbl":
+                        description += "fawn "
+                    elif colour == "blb" or colour == "bb":
+                        description += "lilac "
+                    else:
+                        description += "blue "
+                else:
+                    description += "caramel "
         else:
             if gender == "XOY":
                 description += "red "
@@ -62,12 +70,15 @@ def describe(genes):
     else:
         if gender == "XOXo" or gender == "XoXO":
             if dilute == "dd":
-                if colour == "blbl":
-                    description += "fawn and cream tortie "
-                elif colour == "blb" or colour == "bb":
-                    description += "lilac and cream tortie "
+                if dilute_modifier != "dmdm":
+                    if colour == "blbl":
+                        description += "fawn and cream tortie "
+                    elif colour == "blb" or colour == "bb":
+                        description += "lilac and cream tortie "
+                    else:
+                        description += "blue and cream tortie "
                 else:
-                    description += "blue and cream tortie "
+                    description += "caramel and apricot tortie"
             else:
                 if colour == "blbl":
                     description += "cinnamon and red tortie "
@@ -78,14 +89,20 @@ def describe(genes):
         else:
             if dilute == "dd":
                 if gender == "XOXO":
-                    description += "cream "
-                else:
-                    if colour == "blbl":
-                        description += "fawn "
-                    elif colour == "blb" or colour == "bb":
-                        description += "lilac "
+                    if dilute_modifier != "dmdm":
+                        description += "cream "
                     else:
-                        description += "blue "
+                        description += "apricot "
+                else:
+                    if dilute_modifier != "dmdm":
+                        if colour == "blbl":
+                            description += "fawn "
+                        elif colour == "blb" or colour == "bb":
+                            description += "lilac "
+                        else:
+                            description += "blue "
+                    else:
+                        description += "caramel "
             else:
                 if gender == "XOXO":
                     description += "red "
@@ -99,7 +116,10 @@ def describe(genes):
 
     if solid == "aa":
         if gender == "XOXo" or gender == "XoXO":
-            description += "solid showing "
+            if inhibitor != "ii":
+                description += "smoke showing "
+            else:
+                description += "solid showing "
             if contains_string(ticked, "Ta"):
                 description += "ticked tabby "
             else:
@@ -113,8 +133,13 @@ def describe(genes):
                     else:
                         description += "mackerel tabby "
         else:
-            description += ""
+            if inhibitor != "ii":
+                description += "smoke "
+            else:
+                description += ""
     else:
+        if inhibitor != "ii":
+            description += "silver "
         if contains_string(ticked, "Ta"):
             description += "ticked tabby "
         else:
