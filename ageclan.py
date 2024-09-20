@@ -237,7 +237,7 @@ def apply_death(data):
                 elif rank == 'Queen':
                     death_chance = 0.002  # 0.2% chance
                 elif rank == 'Kit':
-                    death_chance = 0.1  # 1% chance
+                    death_chance = 0.07  # 1% chance
 
                 # Apply death chance
                 if random.random() < death_chance:

@@ -80,3 +80,31 @@ def get_suffix(prefix, age):
     return suffix
 
 
+def random_genestring():
+    fur = ["LL", "Ll", "ll"]
+    gender = ["XOXO", "XOXo", "XoXo", "XOY", "XoY", "XOXO", "XOXo", "XoXo", "XOY", "XoY", "XOY", "XoY"]
+    colour = ["BB", "Bb", "blB", "bb", "blb"]
+    dilute = ["DD", "Dd", "dd", "Dd"]
+    solid = ['AA', 'Aa', 'aa', 'Aa']
+    mackerel = ['McMc', 'Mcmc', 'mcmc', 'Mcmc']
+    spotted = ['SpSp', 'Spsp', 'spsp']
+    ticked = ['TaTa', 'Tata', 'tata', 'tata', 'tata', 'tata', 'tata', 'tata', 'tata', 'tata', 'tata', 'tata']
+    pointed = ['CC', 'csC', 'cscs', 'CC']
+    white = ['ww', 'Wsw', 'Wdw', 'WsWs', 'WdWs', 'WdWd', 'ww', 'Wsw', 'WsWs', 'ww', 'Wsw', 'WsWs', 'ww', 'Wsw',
+             'WsWs', 'ww', 'Wsw', 'WsWs', 'ww', 'Wsw', 'WsWs', 'ww', 'Wsw', 'WsWs']
+    eyes = ['1', '2', '3', '4']
+
+    genes = random.choice(fur) + " "
+    genes += random.choice(gender) + " "
+    genes += random.choice(colour) + " "
+    genes += random.choice(dilute) + " "
+    genes += random.choice(solid) + " "
+    genes += random.choice(mackerel) + " "
+    genes += random.choice(spotted) + " "
+    genes += random.choice(ticked) + " "
+    genes += random.choice(pointed) + " "
+    genes += random.choice(white) + " "
+    genes += random.choice(eyes) + " "
+    genes += random.choice(eyes)
+
+    return genes
