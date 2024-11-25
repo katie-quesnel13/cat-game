@@ -4,6 +4,7 @@ from cat_creation_methods import *
 
 
 def increment_ages(data):
+    new_names = []
     # Check if data is a list
     if isinstance(data, list):
         # Iterate over each record and increment the age
@@ -12,15 +13,19 @@ def increment_ages(data):
                 if 'age' in record and isinstance(record['age'], (int, float)):
                     record['age'] += 1
                     # Update suffix if age is in range 6-11
-                    if 6 <= int(record['age']) < 12 and record['rank'] is not 'Healer Apprentice':
+                    if 6 <= int(record['age']) < 12 and record['rank'] != 'Healer Apprentice':
                         record['suffix'] = 'paw'
                         record["rank"] = 'Apprentice'
                     if int(record['age']) >= 12 and record['suffix'] == 'paw':
                         record['suffix'] = get_suffix(record['prefix'], record['age'])
                         if record['rank'] == 'Apprentice':
                             record['rank'] = 'Warrior'
+                            name = record['prefix'] + record['suffix']
+                            new_names.append(name)
                         elif record['rank'] == 'Healer Apprentice':
                             record['rank'] = 'Healer Apprentice'
+                            name = record['prefix'] + record['suffix']
+                            new_names.append(name)
                     # Update rank to Queen if conditions are met
 #                    if (any(kitten_id in [cat['id'] for cat in data if cat['age'] <= 5 and cat['living']] for kitten_id
 #                            in record['relationships']['kittens']) and record['rank'] == 'Warrior'
@@ -36,15 +41,15 @@ def increment_ages(data):
 #                            record['rank'] = 'Warrior'
                     if record['rank'] == 'Leader':
                         record['suffix'] = 'star'
-                    for kitten_id in [cat['id'] for cat in data if cat['age'] <= 5 and cat['living']]:
-                        print(kitten_id)
-    return data
+                    # for kitten_id in [cat['id'] for cat in data if cat['age'] <= 5 and cat['living']]:
+                        # print(kitten_id)
+    return data, new_names
 
 
 def assign_mentor(data):
     apprentices = [cat for cat in data if 6 <= int(cat['age']) <= 12
                    and cat['relationships']['mentor'] is None and cat.get('living', True)]
-    print(apprentices)
+    # print(apprentices)
     # Function to check if a warrior is eligible
     def is_eligible_mentor(warrior, data):
         trainees = warrior['relationships']['trainees']
@@ -278,7 +283,7 @@ def main(json_file_path):
     # Increment ages
     updated_data, deceased_cats = apply_death(existing_data)
 
-    updated_data = increment_ages(updated_data)
+    updated_data, new_names = increment_ages(updated_data)
 
     updated_data, retired_cats = apply_retired(updated_data)
 
@@ -296,6 +301,9 @@ def main(json_file_path):
         print(f"New Deputy: {new_deputy['prefix']}{new_deputy['suffix']}")
     if new_healer:
         print(f"New Healer: {new_healer['prefix']}{new_healer['suffix']}")
+
+    for name in new_names:
+        print(f"{name} has completed their training and been given a full name.")
 
     for mentor, apprentice in new_pairs:
         print(f"{mentor['prefix']}{mentor['suffix']} is now training {apprentice['prefix']}{apprentice['suffix']}")
