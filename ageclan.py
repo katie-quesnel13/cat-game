@@ -27,31 +27,32 @@ def increment_ages(data):
                             name = record['prefix'] + record['suffix']
                             new_names.append(name)
                     # Update rank to Queen if conditions are met
-#                    if (any(kitten_id in [cat['id'] for cat in data if cat['age'] <= 5 and cat['living']] for kitten_id
-#                            in record['relationships']['kittens']) and record['rank'] == 'Warrior'
-#                            and record['gender'] == 'molly'):
-#                        record['rank'] = 'Queen'
-#                    # Demote from Queen to Warrior if all living kittens are 6 moons or older
-#                    if record['rank'] == 'Queen':
-#                        all_kittens_old = all(
-#                            any(cat['id'] == kitten_id and cat['age'] >= 6 and cat['living'] for cat in data)
-#                            for kitten_id in record['relationships']['kittens']
-#                        )
-#                        if all_kittens_old:
-#                            record['rank'] = 'Warrior'
+                    #                    if (any(kitten_id in [cat['id'] for cat in data if cat['age'] <= 5 and cat['living']] for kitten_id
+                    #                            in record['relationships']['kittens']) and record['rank'] == 'Warrior'
+                    #                            and record['gender'] == 'molly'):
+                    #                        record['rank'] = 'Queen'
+                    #                    # Demote from Queen to Warrior if all living kittens are 6 moons or older
+                    #                    if record['rank'] == 'Queen':
+                    #                        all_kittens_old = all(
+                    #                            any(cat['id'] == kitten_id and cat['age'] >= 6 and cat['living'] for cat in data)
+                    #                            for kitten_id in record['relationships']['kittens']
+                    #                        )
+                    #                        if all_kittens_old:
+                    #                            record['rank'] = 'Warrior'
                     if record['rank'] == 'Leader':
                         record['suffix'] = 'star'
                     # for kitten_id in [cat['id'] for cat in data if cat['age'] <= 5 and cat['living']]:
-                        # print(kitten_id)
+                    # print(kitten_id)
     return data, new_names
 
 
 def assign_mentor(data):
     apprentices = [cat for cat in data if 6 <= int(cat['age']) <= 12
                    and cat['relationships']['mentor'] is None and cat.get('living', True)]
+
     # print(apprentices)
     # Function to check if a warrior is eligible
-    def is_eligible_mentor(warrior, data):
+    def is_eligible_mentor(warrior, mentor_data):
         trainees = warrior['relationships']['trainees']
         if not trainees:
             return True
@@ -60,9 +61,9 @@ def assign_mentor(data):
             return False
         last_trainee = min(
             trainees,
-            key=lambda id: next(cat for cat in data if cat['id'] == id)['age']
+            key=lambda trainee_id: next(cat for cat in mentor_data if cat['id'] == trainee_id)['age']
         )
-        last_trainee_cat = next(cat for cat in data if cat['id'] == last_trainee)
+        last_trainee_cat = next(cat for cat in mentor_data if cat['id'] == last_trainee)
         return last_trainee_cat['age'] >= 13
 
     # Include Leader, Deputy, and Healer in the pool of eligible mentors
@@ -108,11 +109,11 @@ def add_leadership(data):
                              None)
 
     # Helper function to find eligible leaders or deputies
-    def eligible_candidates(cats, data):
+    def eligible_candidates(cats, leadership_data):
         eligible = []
         for cat in cats:
             trainees = cat['relationships']['trainees']
-            if trainees and next(tc for tc in data if tc['id'] == trainees[0])['age'] >= 12 and cat['living'] is True:
+            if trainees and next(tc for tc in leadership_data if tc['id'] == trainees[0])['age'] >= 12 and cat['living'] is True:
                 eligible.append(cat)
         return eligible
 
@@ -265,7 +266,8 @@ def print_cat(data):
                 gender = record.get('gender', 'No gender')
                 rank = record.get('rank', 'No rank')
                 id = record.get('id', "no id")
-                print(f"{prefix}{suffix}: {age} moons old {gender} {rank} {id}")
+                years = format_months_to_years_and_months(age)
+                print(f"{prefix}{suffix}: {age} moons old [{years}] {gender} {rank} {id}")
 
 
 def main(json_file_path):

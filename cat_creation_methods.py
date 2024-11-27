@@ -124,3 +124,9 @@ def random_genestring():
     genes += random.choice(eyes)
 
     return genes
+
+
+def format_months_to_years_and_months(total_months):
+    years = total_months // 12
+    months = total_months % 12
+    return f"{years} year{'s' if years != 1 else ''}, {months} month{'s' if months != 1 else ''}"

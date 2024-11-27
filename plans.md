@@ -10,4 +10,4 @@
     - this would probably also involve using more efficient solutions than chained if statements, as they're a lot to read
 - adjust the data system to have access to determined blue and het as part of the cat data, rather than needing to check
  descriptions for specific wording (currently blue and singular eye)
-- add converting the moons ages into years to something. math is hard and computer is good at it
+- family tree tool?
