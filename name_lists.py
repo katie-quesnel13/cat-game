@@ -1,7 +1,7 @@
 # prefixes
 red_names = ["Fire", "Flame", "Fox", "Red", "Ginger", "Rose", "Ember", "Bright", "Poppy", "Cherry", "Sun",
              "Golden", "Fallow", "Cedar", "Honey", "Blaze", "Yellow", "Holly", "Berry", "Maple", "Sorrel", "Amber",
-             "Apple", "Cedar", "Yew", "Russet", "Robin", "Pink", "Petal", "Plum", "Spark", "Rowan", "Sloe"]
+             "Apple", "Cedar", "Yew", "Russet", "Robin", "Pink", "Petal", "Plum", "Spark", "Rowan", "Sloe", "Copper"]
 cream_names = ["Bright", "Milk", "Sand", "Dust", "Yellow", "Dawn", "Light", "Golden", "Morning",
                "Daisy", "Pale", "Egg", "Lily", "Honey", "Elm", "Amber", "Apple", "Hay", "Grass", "Petal", "Weed",
                "Bush", "Dry", "Sandy"]
@@ -18,7 +18,8 @@ lilac_names = ["Dove", "Feather", "Stone", "Pebble", "Mist", "Fog", "Dust", "Ash
                "Jay", "Eagle", "Dusk", "Tawny", "Fennel", "Mud", "Aspen", "Bird", "Violet", "Aster", "Elm", "Grass",
                "Puddle", "Trout"]
 cinnamon_names = ["Dust", "Mud", "Leaf", "Tree", "Fawn", "Deer", "Doe", "Honey", "Mole", "Otter",
-                  "Lizard", "Sand", "Rabbit", "Vole", "Sorrel", "Acorn", "Weasel", "Wren", "Stem", "Mole", "Rowan"]
+                  "Lizard", "Sand", "Rabbit", "Vole", "Sorrel", "Acorn", "Weasel", "Wren", "Stem", "Mole",
+                  "Rowan", "Copper"]
 fawn_names = ["Pale", "Bug", "Dawn", "Leaf", "Mist", "Dust", "Dove", "Bird", "Pike", "Plum", "Sky",
               "Hazel", "Shrew", "Clover", "Grass", "Wren", "Stoat", "Puddle", "Storm", "Rowan"]
 caramel_names = ["Dust", "Sand", "Ash", "Bark", "Stone", "Wren", "Mist"]

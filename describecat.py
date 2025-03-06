@@ -124,7 +124,7 @@ def describe(genes):
                 description += "ticked tabby "
             else:
                 if mackerel == "mcmc":
-                    description += "classic tabby "
+                    description += "blotched tabby "
                 else:
                     if spotted == "SpSp":
                         description += "spotted tabby "
@@ -144,7 +144,7 @@ def describe(genes):
             description += "ticked tabby "
         else:
             if mackerel == "mcmc":
-                description += "classic tabby "
+                description += "blotched tabby "
             else:
                 if spotted == "SpSp":
                     description += "spotted tabby "
@@ -180,79 +180,173 @@ def desc_eyes(refraction, pigment, white, pointed):
     pigment = str(pigment)
     blue_chance = 0
     het_chance = 1
+    bg_chance = 10
     if white == "WsWs" or contains_string(white, "Wd"):
         blue_chance = 40
+        bg_chance = 10
         het_chance = 7
     if white == "Wsw":
         blue_chance = 20
+        bg_chance = 10
         het_chance = 5
     if pointed == 'cscs':
         blue_chance = 100
+        bg_chance = 10
         het_chance = 0
 
     ran = random.uniform(0, 100)
     blue = ran < blue_chance
     ran = random.uniform(0, 100)
     het = ran < het_chance
+    ran = random.uniform(0, 100)
+    bg = ran < bg_chance
     eyes = ""
     blue_eyes = ""
 
     if refraction == "1":
         if pigment == "1":
-            eyes = " yellow"
+            eyes = " canary"
         if pigment == "2":
-            eyes = " gold"
+            eyes = " yellow"
         if pigment == "3":
-            eyes = " orange"
+            eyes = " gold"
         if pigment == "4":
+            eyes = " saffron"
+        if pigment == "5":
+            eyes = " orange"
+        if pigment == "6":
+            eyes = " ochre"
+        if pigment == "7":
             eyes = " copper"
     if refraction == "2":
         if pigment == "1":
-            eyes = " pale green"
+            eyes = " chiffon"
         if pigment == "2":
-            eyes = " leaf green"
+            eyes = " chartreuse"
         if pigment == "3":
-            eyes = " amber"
+            eyes = " citron"
         if pigment == "4":
-            eyes = " bronze"
+            eyes = " butterscotch"
+        if pigment == "5":
+            eyes = " amber"
+        if pigment == "6":
+            eyes = " caramel"
+        if pigment == "7":
+            eyes = " chestnut"
     if refraction == "3":
+        if pigment == "1":
+            eyes = " honeydew"
+        if pigment == "2":
+            eyes = " sprout"
+        if pigment == "3":
+            eyes = " pear"
+        if pigment == "4":
+            eyes = " shrub"
+        if pigment == "5":
+            eyes = " brass"
+        if pigment == "6":
+            eyes = " bronze"
+        if pigment == "7":
+            eyes = " umber"
+    if refraction == "4":
+        if pigment == "1":
+            eyes = " sage"
+        if pigment == "2":
+            eyes = " laurel"
+        if pigment == "3":
+            eyes = " lime"
+        if pigment == "4":
+            eyes = " spring"
+        if pigment == "5":
+            eyes = " peridot"
+        if pigment == "6":
+            eyes = " serpentine"
+        if pigment == "7":
+            eyes = " walnut"
+    if refraction == "5":
+        if pigment == "1":
+            eyes = " celadon"
+        if pigment == "2":
+            eyes = " mint"
+        if pigment == "3":
+            eyes = " mantis"
+        if pigment == "4":
+            eyes = " jade"
+        if pigment == "5":
+            eyes = " avocado"
+        if pigment == "6":
+            eyes = " artichoke"
+        if pigment == "7":
+            eyes = " earthen"
+    if refraction == "6":
         if pigment == "1":
             eyes = " aqua"
         if pigment == "2":
-            eyes = " green"
+            eyes = " turquoise"
         if pigment == "3":
-            eyes = " hazel"
+            eyes = " grass"
         if pigment == "4":
-            eyes = " brown"
-    if refraction == "4":
+            eyes = " pine"
+        if pigment == "5":
+            eyes = " clover"
+        if pigment == "6":
+            eyes = " fern"
+        if pigment == "7":
+            eyes = " olive"
+    if refraction == "7":
         if pigment == "1":
-            eyes = " blue-green"
+            eyes = " cerulean"
         if pigment == "2":
-            eyes = " deep green"
+            eyes = " teal"
         if pigment == "3":
-            eyes = " moss green"
+            eyes = " viridian"
         if pigment == "4":
-            eyes = " dark green"
+            eyes = " emerald"
+        if pigment == "5":
+            eyes = " malachite"
+        if pigment == "6":
+            eyes = " forest"
+        if pigment == "7":
+            eyes = " moss"
 
     if refraction == "1":
-        blue_eyes = " ice blue"
+        if bg:
+            blue_eyes = " frost"
+        else:
+            blue_eyes = " ice"
     if refraction == "2":
-        blue_eyes = " sky blue"
+        if bg:
+            blue_eyes = " opal"
+        else:
+            blue_eyes = " powder"
     if refraction == "3":
-        blue_eyes = " blue"
+        if bg:
+            blue_eyes = " flint"
+        else:
+            blue_eyes = " celeste"
     if refraction == "4":
-        blue_eyes = " dark blue"
+        if bg:
+            blue_eyes = " storm"
+        else:
+            blue_eyes = " sky"
+    if refraction == "5":
+        if bg:
+            blue_eyes = " steel"
+        else:
+            blue_eyes = " azure"
+    if refraction == "6":
+        if bg:
+            blue_eyes = " slate"
+        else:
+            blue_eyes = " lapis"
+    if refraction == "7":
+        if bg:
+            blue_eyes = " cadet"
+        else:
+            blue_eyes = " cobalt"
 
     if het:
-        eyes = " one" + eyes + " eye and one"
-        if refraction == "1":
-            eyes += " ice blue eye"
-        if refraction == "2":
-            eyes += " sky blue eye"
-        if refraction == "3":
-            eyes += " blue eye"
-        if refraction == "4":
-            eyes += " dark blue eye"
+        eyes = " one" + eyes + " eye and one" + blue_eyes + " eye"
         return eyes
     else:
         if blue:

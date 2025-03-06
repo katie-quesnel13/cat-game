@@ -56,7 +56,7 @@ def main(json_file_path):
         next_id = 1
 
     print("Format for genes: if it's 3 letters long, make sure longer gene is first. Numbers refer to eye colour:"
-          " refraction is first and pigmentation is second. Blue is determined via white present on the cat")
+          " refraction is first and pigmentation is second. They run 1-7. Blue is determined via white present on the cat")
     genes = input(
         "Enter genetic profile for the new cat (e.g., 'LL XOXO BB DD dmdm AA ii McMc SpSp TaTa CC WsWs 1 1') or leave blank for "
         "a random genetic profile: ").strip()

@@ -22,6 +22,8 @@ random number generator and some graphs about litter sizes / math about them
 
 eye colour chart source: https://sparrows-garden.com/eye-color-generator.html (note i'm using different logic for the eyes)
 
+2025 eye chart source: https://www.tumblr.com/sparrowsgarden/776880572202139648/sparrows-eye-color-chart-2025-edition
+
 warriors but cats die: https://warriors-but-cats-die.tumblr.com/
 
 10% survivors au: https://www.tumblr.com/10leftau/185132555587/myo-10-left

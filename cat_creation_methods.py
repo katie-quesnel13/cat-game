@@ -106,7 +106,7 @@ def random_genestring():
     pointed = ['CC', 'csC', 'cscs', 'CC']
     white = ['ww', 'Wsw', 'Wdw', 'WsWs', 'WdWs', 'WdWd', 'ww', 'Wsw', 'WsWs', 'ww', 'Wsw', 'WsWs', 'ww', 'Wsw',
              'WsWs', 'ww', 'Wsw', 'WsWs', 'ww', 'Wsw', 'WsWs', 'ww', 'Wsw', 'WsWs']
-    eyes = ['1', '2', '3', '4']
+    eyes = ['1', '2', '3', '4', '5', '6', '7']
 
     genes = random.choice(fur) + " "
     genes += random.choice(gender) + " "
